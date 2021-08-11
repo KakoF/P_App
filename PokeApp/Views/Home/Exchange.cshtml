@@ -1,0 +1,72 @@
+﻿@model Domain.Dto.ListExchange<Domain.Dto.Exchange.ExchangeResponseDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped" id="tblExchange">
+                <thead>
+                    <tr>
+                        <th>Treinador 1</th>
+                        <th>Treinador 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ foreach (var item in Model.Data)
+                        {
+                            <tr>
+                                <td>@item.TraderOne.Name</td>
+                                <td>@item.TraderTwo.Name</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{ foreach (var pokemon in item.TraderOne.Pokemons)
+                                        { 
+                                            
+                                        <img src="@pokemon.Url"/>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @{ foreach (var pokemon in item.TraderTwo.Pokemons)
+                                        {
+
+                                            <img src="@pokemon.Url" />
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblExchange').DataTable({
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": @(Model.Data.Count() / 10),
+                "columns": [
+                    {
+                        "data": "Treinador 1",
+                        "autoWidth": true,
+                    },
+                    {
+                        "data": "Treinador 2",
+                        "autoWidth": true,
+                    },
+                ]
+            );
+        });
+    </script>
+}  

@@ -1,0 +1,103 @@
+﻿@model Domain.Dto.ListResult<Domain.Dto.Pokemon.PokemonDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <div class="text-center">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="TraderTwo" placeholder="Treinador 1">
+                </div>
+                <div class="mb-3">
+                    <input type="text" hidden class="form-control" name="pokemonsTraderOne" id="traderOneArray">
+                    <img hidden id="traderOne_1" src="~/images/poke.png" />
+                    <img hidden id="traderOne_2" src="~/images/poke.png" />
+                    <img hidden id="traderOne_3" src="~/images/poke.png" />
+                    <img hidden id="traderOne_4" src="~/images/poke.png" />
+                    <img hidden id="traderOne_5" src="~/images/poke.png" />
+                    <img hidden id="traderOne_6" src="~/images/poke.png" />
+                </div>
+                <table class="table table-bordered table-striped table-sm" id="tblPokemon">
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Pokemon</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var item in Model.Data.Results)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="addTraderOne('@item')">Adicionar</button>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="TraderOne" placeholder="Treinador 2">
+                </div>
+                <div class="mb-3">
+                    <input type="text" hidden class="form-control" name="pokemonsTraderTwo" id="traderTwoArray">
+                    <img hidden id="traderTwo_1" src="~/images/poke.png" />
+                    <img hidden id="traderTwo_2" src="~/images/poke.png" />
+                    <img hidden id="traderTwo_3" src="~/images/poke.png" />
+                    <img hidden id="traderTwo_4" src="~/images/poke.png" />
+                    <img hidden id="traderTwo_5" src="~/images/poke.png" />
+                    <img hidden id="traderTwo_6" src="~/images/poke.png" />
+                </div>
+                <table class="table table-bordered table-striped table-sm" id="tblPokemon">
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Pokemon</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var item in Model.Data.Results)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="addTraderTwo('@item')">Adicionar</button>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <button type="button" id="btnSubmit" class="btn btn-primary btn-lg btn-block">Trocar</button>
+    </div>
+
+
+@section scripts{
+
+    <script>
+    function addTraderOne(pokemon) {
+        console.log(pokemon)
+    }
+    function addTraderTwo(pokemon) {
+        console.log(pokemon)
+    }
+
+    $('#btnSubmit').on('click', function() {
+         console.log('asdas')
+        })
+    </script>
+
+}  
