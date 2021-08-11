@@ -1,4 +1,4 @@
-﻿@model Domain.Dto.ListResult<Domain.Dto.Pokemon.PokemonDto>
+﻿@model PaginationModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{ foreach (var item in Model.Data.Results)
+                        @{ foreach (var item in Model.Data.Data.Results)
                             {
                                 <tr>
                                     <td>@item.Id</td>
@@ -62,7 +62,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{ foreach (var item in Model.Data.Results)
+                        @{ foreach (var item in Model.Data.Data.Results)
                             {
                                 <tr>
                                     <td>@item.Id</td>
@@ -80,6 +80,32 @@
         </div>
         <div>
 
+            @*<div>
+            <ul class="pagination">
+                @if (Model.ShowPrevious)
+                {
+                    <li class="page-item">
+                        <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage -1)" class="page-link">Previous</a>
+                    </li>
+                }
+                @if (Model.ShowNext)
+                {
+                    <li class="page-item">
+                        <a asp-page="/pagination" asp-route-currentpage="@(Model.CurrentPage + 1)" class="page-link">Next</a>
+                    </li>
+                }
+            </ul>
+        </div>*@
+            <div>
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
         <button type="button" id="btnSubmit" class="btn btn-primary btn-lg btn-block">Trocar</button>
     </div>

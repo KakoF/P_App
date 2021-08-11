@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Interface;
+﻿using Domain.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PokeApp.Models;
+using System.Threading.Tasks;
 
 namespace PokeApp.Controllers
 {
@@ -19,12 +13,15 @@ namespace PokeApp.Controllers
             _service = service;
             _serviceExchange = serviceExchange;
         }
-        
 
-        public async Task<IActionResult> IndexAsync()
+
+        public async Task<IActionResult> IndexAsync(int currentpage = 0)
         {
-            var pokekons = await _service.Get(0, 20);
-            return View(pokekons);
+            //var pokekons = await _service.Get(0, 20);
+            PaginationModel pagination = new PaginationModel(_service);
+            pagination.CurrentPage = currentpage;
+            await pagination.OnGetAsync();
+            return View(pagination);
         }
 
         public async Task<IActionResult> ExchangeAsync()
