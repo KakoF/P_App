@@ -8,14 +8,8 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="TraderOne" id="TraderOne" placeholder="Treinador 1">
             </div>
-            <div class="mb-3">
-                <input type="text" hidden class="form-control" name="pokemonsTraderOne" id="traderOneArray">
-                <img style="display: none;" id="traderOne_0" src="~/images/poke.png" onclick="removePokemonTraderOne(0)" />
-                <img style="display: none;" id="traderOne_1" src="~/images/poke.png" onclick="removePokemonTraderOne(1)" />
-                <img style="display: none;" id="traderOne_2" src="~/images/poke.png" onclick="removePokemonTraderOne(2)" />
-                <img style="display: none;" id="traderOne_3" src="~/images/poke.png" onclick="removePokemonTraderOne(3)" />
-                <img style="display: none;" id="traderOne_4" src="~/images/poke.png" onclick="removePokemonTraderOne(4)" />
-                <img style="display: none;" id="traderOne_5" src="~/images/poke.png" onclick="removePokemonTraderOne(5)" />
+            <div class="mb-3" id="exchangeTraderOne">
+                
             </div>
             <table class="table table-bordered table-striped table-sm" id="tblPokemonOne">
                 <thead>
@@ -32,7 +26,7 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderOne('@item.Id')">Adicionar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderOne('@item.Id', '@item.Name')">Adicionar</button>
                                 </td>
                             </tr>
                         }
@@ -45,14 +39,8 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="TraderTwo" id="TraderTwo" placeholder="Treinador 2">
             </div>
-            <div class="mb-3">
-                <input type="text" hidden class="form-control" name="pokemonsTraderTwo" id="traderTwoArray">
-                <img style="display: none;" id="traderTwo_0" src="~/images/poke.png" onclick="removePokemonTraderTwo(0)" />
-                <img style="display: none;" id="traderTwo_1" src="~/images/poke.png" onclick="removePokemonTraderTwo(1)" />
-                <img style="display: none;" id="traderTwo_2" src="~/images/poke.png" onclick="removePokemonTraderTwo(2)" />
-                <img style="display: none;" id="traderTwo_3" src="~/images/poke.png" onclick="removePokemonTraderTwo(3)" />
-                <img style="display: none;" id="traderTwo_4" src="~/images/poke.png" onclick="removePokemonTraderTwo(4)" />
-                <img style="display: none;" id="traderTwo_5" src="~/images/poke.png" onclick="removePokemonTraderTwo(5)" />
+            <div class="mb-3" id="exchangeTraderTwo">
+               
             </div>
             <table class="table table-bordered table-striped table-sm" id="tblPokemonTwo">
                 <thead>
@@ -69,7 +57,7 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderTwo('@item.Id')">Adicionar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderTwo('@item.Id', '@item.Name')">Adicionar</button>
                                 </td>
                             </tr>
                         }
@@ -88,6 +76,7 @@
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script>
+       
         $(document).ready(function () {
             options = {
                 "bPaginate": true,
@@ -105,33 +94,34 @@
             var tableTwo = $('#tblPokemonTwo').DataTable(
                 options
             );
+
         });
         const traderOneArray = []
         const traderTwoArray = []
 
-        function addTraderOne(id) {
+        function addTraderOne(id, pokemon) {
 
             if (traderOneArray.length < 6) {
-                $(`#traderOne_${traderOneArray.length}`).show()
+                $("#exchangeTraderOne").append(`<img id="traderOne_${traderOneArray.length}" src="@("/images/poke.png")" data-toggle="tooltip" data-placement="bottom" title="${pokemon}" onclick="removePokemonTraderOne(${traderOneArray.length})" />`)
                 traderOneArray.push({ "pokemonId": id });
             }
         }
-        function addTraderTwo(id) {
+        function addTraderTwo(id, pokemon) {
             if (traderTwoArray.length < 6) {
-                $(`#traderTwo_${traderTwoArray.length}`).show()
+                $("#exchangeTraderTwo").append(`<img id="traderTwo_${traderTwoArray.length}" src="@("/images/poke.png")" data-toggle="tooltip" data-placement="bottom" title="${pokemon}" onclick="removePokemonTraderTwo(${traderTwoArray.length})" />`)
                 traderTwoArray.push({ "pokemonId": id });
             }
         }
         function removePokemonTraderOne(indice) {
             if (traderOneArray.length > 0) {
-                $(`#traderOne_${traderOneArray.length - 1}`).hide()
-                traderOneArray.splice(indice)
+                 $(`#traderOne_${indice}`).remove()
+                traderOneArray.splice(indice, 1);
             }
         }
         function removePokemonTraderTwo(indice) {
             if (traderTwoArray.length > 0) {
-                $(`#traderTwo_${traderTwoArray.length - 1}`).hide()
-                traderTwoArray.splice(indice);
+                $(`#traderTwo_${indice}`).remove()
+                traderTwoArray.splice(indice, 1);
             }
         }
 

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    container_name: 'poke_app'
+    image: app_poke
+    restart: always
+    environment:
+      - PORT=5001
+    ports:
+      - '5001:5001'
+    build:
+      context: .
+      dockerfile: Dockerfile
