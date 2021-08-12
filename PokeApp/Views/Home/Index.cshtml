@@ -2,101 +2,163 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-    <div class="text-center">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="TraderTwo" placeholder="Treinador 1">
-                </div>
-                <div class="mb-3">
-                    <input type="text" hidden class="form-control" name="pokemonsTraderOne" id="traderOneArray">
-                    <img hidden id="traderOne_1" src="~/images/poke.png" />
-                    <img hidden id="traderOne_2" src="~/images/poke.png" />
-                    <img hidden id="traderOne_3" src="~/images/poke.png" />
-                    <img hidden id="traderOne_4" src="~/images/poke.png" />
-                    <img hidden id="traderOne_5" src="~/images/poke.png" />
-                    <img hidden id="traderOne_6" src="~/images/poke.png" />
-                </div>
-                <table class="table table-bordered table-striped table-sm" id="tblPokemon">
-                    <thead>
-                        <tr>
-                            <th>Numero</th>
-                            <th>Pokemon</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ foreach (var item in Model.Data.Results)
-                            {
-                                <tr>
-                                    <td>@item.Id</td>
-                                    <td>@item.Name</td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="addTraderOne('@item')">Adicionar</button>
-                                    </td>
-                                </tr>
-                            }
-
-                        }
-                    </tbody>
-                </table>
+<div class="text-center">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="TraderOne" id="TraderOne" placeholder="Treinador 1">
             </div>
-            <div class="col-sm-6">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="TraderOne" placeholder="Treinador 2">
-                </div>
-                <div class="mb-3">
-                    <input type="text" hidden class="form-control" name="pokemonsTraderTwo" id="traderTwoArray">
-                    <img hidden id="traderTwo_1" src="~/images/poke.png" />
-                    <img hidden id="traderTwo_2" src="~/images/poke.png" />
-                    <img hidden id="traderTwo_3" src="~/images/poke.png" />
-                    <img hidden id="traderTwo_4" src="~/images/poke.png" />
-                    <img hidden id="traderTwo_5" src="~/images/poke.png" />
-                    <img hidden id="traderTwo_6" src="~/images/poke.png" />
-                </div>
-                <table class="table table-bordered table-striped table-sm" id="tblPokemon">
-                    <thead>
-                        <tr>
-                            <th>Numero</th>
-                            <th>Pokemon</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ foreach (var item in Model.Data.Results)
-                            {
-                                <tr>
-                                    <td>@item.Id</td>
-                                    <td>@item.Name</td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="addTraderTwo('@item')">Adicionar</button>
-                                    </td>
-                                </tr>
-                            }
-
-                        }
-                    </tbody>
-                </table>
+            <div class="mb-3">
+                <input type="text" hidden class="form-control" name="pokemonsTraderOne" id="traderOneArray">
+                <img style="display: none;" id="traderOne_0" src="~/images/poke.png" onclick="removePokemonTraderOne(0)" />
+                <img style="display: none;" id="traderOne_1" src="~/images/poke.png" onclick="removePokemonTraderOne(1)" />
+                <img style="display: none;" id="traderOne_2" src="~/images/poke.png" onclick="removePokemonTraderOne(2)" />
+                <img style="display: none;" id="traderOne_3" src="~/images/poke.png" onclick="removePokemonTraderOne(3)" />
+                <img style="display: none;" id="traderOne_4" src="~/images/poke.png" onclick="removePokemonTraderOne(4)" />
+                <img style="display: none;" id="traderOne_5" src="~/images/poke.png" onclick="removePokemonTraderOne(5)" />
             </div>
-        </div>
-        <div>
+            <table class="table table-bordered table-striped table-sm" id="tblPokemonOne">
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Pokemon</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ foreach (var item in Model.Data.Results)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderOne('@item.Id')">Adicionar</button>
+                                </td>
+                            </tr>
+                        }
 
+                    }
+                </tbody>
+            </table>
         </div>
-        <button type="button" id="btnSubmit" class="btn btn-primary btn-lg btn-block">Trocar</button>
+        <div class="col-sm-6">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="TraderTwo" id="TraderTwo" placeholder="Treinador 2">
+            </div>
+            <div class="mb-3">
+                <input type="text" hidden class="form-control" name="pokemonsTraderTwo" id="traderTwoArray">
+                <img style="display: none;" id="traderTwo_0" src="~/images/poke.png" onclick="removePokemonTraderTwo(0)" />
+                <img style="display: none;" id="traderTwo_1" src="~/images/poke.png" onclick="removePokemonTraderTwo(1)" />
+                <img style="display: none;" id="traderTwo_2" src="~/images/poke.png" onclick="removePokemonTraderTwo(2)" />
+                <img style="display: none;" id="traderTwo_3" src="~/images/poke.png" onclick="removePokemonTraderTwo(3)" />
+                <img style="display: none;" id="traderTwo_4" src="~/images/poke.png" onclick="removePokemonTraderTwo(4)" />
+                <img style="display: none;" id="traderTwo_5" src="~/images/poke.png" onclick="removePokemonTraderTwo(5)" />
+            </div>
+            <table class="table table-bordered table-striped table-sm" id="tblPokemonTwo">
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>Pokemon</th>
+                        <th>Pokemon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ foreach (var item in Model.Data.Results)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="addTraderTwo('@item.Id')">Adicionar</button>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
+    <div>
 
-
+    </div>
+    <button type="button" id="btnSubmit" class="btn btn-primary btn-lg btn-block">Trocar</button>
+</div>
 @section scripts{
-
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script>
-    function addTraderOne(pokemon) {
-        console.log(pokemon)
-    }
-    function addTraderTwo(pokemon) {
-        console.log(pokemon)
-    }
+        $(document).ready(function () {
+            options = {
+                "bPaginate": true,
+                "bLengthChange": false,
+                "aLengthMenu": [10],
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "order": false,
+                "sDom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>'
+            }
+            var tableOne = $('#tblPokemonOne').DataTable(
+                options
+            );
+            var tableTwo = $('#tblPokemonTwo').DataTable(
+                options
+            );
+        });
+        const traderOneArray = []
+        const traderTwoArray = []
 
-    $('#btnSubmit').on('click', function() {
-         console.log('asdas')
+        function addTraderOne(id) {
+
+            if (traderOneArray.length < 6) {
+                $(`#traderOne_${traderOneArray.length}`).show()
+                traderOneArray.push({ "pokemonId": id });
+            }
+        }
+        function addTraderTwo(id) {
+            if (traderTwoArray.length < 6) {
+                $(`#traderTwo_${traderTwoArray.length}`).show()
+                traderTwoArray.push({ "pokemonId": id });
+            }
+        }
+        function removePokemonTraderOne(indice) {
+            if (traderOneArray.length > 0) {
+                $(`#traderOne_${traderOneArray.length - 1}`).hide()
+                traderOneArray.splice(indice)
+            }
+        }
+        function removePokemonTraderTwo(indice) {
+            if (traderTwoArray.length > 0) {
+                $(`#traderTwo_${traderTwoArray.length - 1}`).hide()
+                traderTwoArray.splice(indice);
+            }
+        }
+
+         $('#btnSubmit').on('click', function () {
+            var data =
+            {
+                "traderOne": {
+                    "name": $("#TraderOne").val(),
+                    "pokemons": traderOneArray
+                },
+                "traderTwo": {
+                    "name": $("#TraderTwo").val(),
+                    "pokemons": traderTwoArray
+                }
+            }
+            $.post({
+              url: '@Url.Action("DoExchange", "Home")',
+              type: 'POST',
+              data: data,
+
+              success: function(data) {
+                  toast.info(`<p>Sucesso!</p>${data.message}`);
+              },
+              error: function(jqXHR, error) {
+                toast.error(`<p>Erro!</p> ${jqXHR.responseText}</p>`);
+              },
+            })
         })
     </script>
 

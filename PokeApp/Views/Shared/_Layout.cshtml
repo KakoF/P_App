@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Troca Pokemon</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/toasty.min.css" />
 </head>
 <body>
     <header>
@@ -43,6 +44,22 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/toasty.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+        var options = {
+            classname: "toast",
+            transition: "fade",
+            insertBefore: true,
+            duration: 4000,
+            enableSounds: false,
+            autoClose: true,
+            progressBar: true,
+        };
+        var toast = new Toasty(options);
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

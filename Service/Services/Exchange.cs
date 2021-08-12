@@ -23,11 +23,10 @@ namespace Service.Services
             return JsonConvert.DeserializeObject<ListExchange<ExchangeResponseDto>>(data);
         }
 
-        public Task<ExchangeResponseDto> Post(ExchangeCreateDto exchange)
+        public async Task<ListResult<ExchangeResponseDto>> Post(ExchangeCreateDto exchange)
         {
-            throw new NotImplementedException();
+                var data = await _request.PostRequest("exchange", exchange);
+                return JsonConvert.DeserializeObject<ListResult<ExchangeResponseDto>>(data);
         }
-
-       
     }
 }

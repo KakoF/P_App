@@ -10,6 +10,6 @@ namespace Domain.Interface
     public interface IExchange
     {
         Task<ListExchange<ExchangeResponseDto>> Get();
-        Task<ExchangeResponseDto> Post(ExchangeCreateDto exchange);
+        Task<ListResult<ExchangeResponseDto>> Post(ExchangeCreateDto exchange);
     }
 }

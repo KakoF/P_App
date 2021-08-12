@@ -23,9 +23,9 @@
                             <tr>
                                 <td>
                                     @{ foreach (var pokemon in item.TraderOne.Pokemons)
-                                        { 
-                                            
-                                        <img src="@pokemon.Url"/>
+                                        {
+
+                                            <img src="@pokemon.Url" />
                                         }
                                     }
                                 </td>
@@ -49,23 +49,21 @@
 
 @section scripts{
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+   
     <script>
         $(document).ready(function () {
-            $('#tblExchange').DataTable({
-                "orderMulti": false, // for disable multiple column at once
-                "pageLength": @(Model.Data.Count() / 10),
-                "columns": [
-                    {
-                        "data": "Treinador 1",
-                        "autoWidth": true,
-                    },
-                    {
-                        "data": "Treinador 2",
-                        "autoWidth": true,
-                    },
-                ]
+            var table = $('#tblExchange').DataTable(
+                {
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "order": false,
+
+                }
             );
         });
     </script>

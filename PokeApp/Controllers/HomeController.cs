@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Dto.Exchange;
 using Domain.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,7 @@ namespace PokeApp.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var pokekons = await _service.Get(0, 20);
+            var pokekons = await _service.GetPokemons();
             return View(pokekons);
         }
 
@@ -31,6 +32,20 @@ namespace PokeApp.Controllers
         {
             var exchange = await _serviceExchange.Get();
             return View(exchange);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DoExchangeAsync(ExchangeCreateDto data)
+        {
+            try
+            {
+                return Ok(await _serviceExchange.Post(data));
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
     }
 }

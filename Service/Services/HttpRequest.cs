@@ -1,5 +1,7 @@
-﻿using Domain.Interface;
+﻿using Domain.Dto;
+using Domain.Interface;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -25,13 +27,26 @@ namespace Service.Services
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpointPath);
             if (!response.IsSuccessStatusCode)
-                throw new Exception("Pokemon não encontrado!");
+            {
+                var error = JsonConvert.DeserializeObject<ErrorResult>(response.Content.ReadAsStringAsync().Result);
+                throw new Exception(error.Message);
+            }
             return await response.Content.ReadAsStringAsync();
         }
 
-        public Task<string> PostRequest(string url)
+        public async Task<string> PostRequest(string url, object data)
         {
-            throw new NotImplementedException();
+            string endpointPath = _baseUrl + url;
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync(endpointPath, content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<ErrorResult>(response.Content.ReadAsStringAsync().Result);
+                throw new Exception(error.Message);
+            }
+
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

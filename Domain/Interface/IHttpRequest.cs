@@ -8,6 +8,6 @@ namespace Domain.Interface
     public interface IHttpRequest
     {
         Task<string> GetRequest(string url);
-        Task<string> PostRequest(string url);
+        Task<string> PostRequest(string url, object data);
     }
 }
